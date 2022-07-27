@@ -8,6 +8,7 @@ window.onload = function () {
   var domTens = document.getElementById("tens");
   var domMins = document.getElementById('mins')
   var startButton = document.getElementById('start');
+  var resetButton = document.getElementById('reset');
   var interval ;
 
   startButton.onclick = function start() {
@@ -18,12 +19,22 @@ window.onload = function () {
       startButton.innerHTML = "start"
     }else {
     clearInterval(interval);
-    interval = setInterval(startTimer, 10);
+    interval = setInterval(startTimer, 0.01);
 
     startButton.setAttribute('id', 'stop');
     startButton.innerHTML = "stop";
     console.log(startButton.id)
     }
+  }
+
+  resetButton.onclick = () => {
+    clearInterval(interval);
+    tens = "00"
+    seconds = "00"
+    domSeconds.innerHTML = seconds;
+    domTens.innerHTML = tens;
+    domMins.remove();
+
   }
 
 
@@ -51,7 +62,7 @@ window.onload = function () {
       domSeconds.innerHTML = seconds;
     }
 
-    if (seconds > 59){
+    if (seconds > 5){
       minutes++;
       if (minutes == 1){
         createMins = document.createElement('span');
@@ -67,8 +78,9 @@ window.onload = function () {
       seconds = 0;
       domSeconds.innerHTML = "0" + seconds;
       domMins.innerHTML = "0" + minutes + ":";
-
-
+    }
+    if (minutes > 9){
+      domMins.innerHTML = minutes + ":";
     }
   }
 }
